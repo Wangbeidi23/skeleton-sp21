@@ -7,13 +7,20 @@ package DebugExercise;
 public class DebugExercise2 {
     /** Returns the max of a and b. Do not step into this function. */
     public static int max(int a, int b) {
-        int w = (b - a) >> 31;
-        /* If you're stepping into this function, click the
-           step out button because you're not going to learn anything. */
-        int z = ~(b - a) >> 31;
+        // 计算差值的符号位，如果b大于a，则结果为负数，右移31位后得到-1（即所有位都是1）
+        // 如果a大于等于b，则结果为非负数，右移31位后得到0或正数
+        if(a>=b){
+            return a;
+        }else{ return b;}
 
-        int max = b & w | a & z;
-        return max;
+        // 计算差值的补码的符号位，如果b大于a，则结果为正数，取补码后得到0，右移31位后得到0
+        // 如果a大于等于b，则结果为负数，取补码后得到正数，右移31位后得到-1（即所有位都是1）
+
+        // 使用位运算选择a或b
+        // 如果b大于a，则w为-1，z为0，所以(b&w)为-1（即b），(a&z)为0，最终结果为b
+        // 如果a大于等于b，则w为0，z为-1（即a），所以(b&w)为0，(a&z)为a，最终结果为a
+
+
     }
 
 
@@ -58,7 +65,7 @@ public class DebugExercise2 {
         int i = 0;
         int sum = 0;
         while (i < x.length) {
-            sum = sum + add(sum, x[i]);
+            sum = add(sum, x[i]);
             i = i + 1;
         }
         return sum;
